@@ -1,4 +1,5 @@
 ﻿using Business.Concrete;
+using Business.Constants;
 using DataAccess.Concrete;
 using DataAccess.Concrete.EntityFramework;
 using Entities.Concrete;
@@ -10,8 +11,8 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
-            
-           GetAll();
+
+            RentalsAdd();
 
 
 
@@ -30,20 +31,26 @@ namespace ConsoleUI
         }
         private static void GetCarDetails()
         {
-            
+
             CarManager carManager = new CarManager(new EfCarDAL());
             foreach (var item in carManager.GetCarDetails().Data)
             {
-                Console.WriteLine(item.BrandName + " " + item.ColorName + " " + item.DailyPrice+" "+ item.CarName);
+                Console.WriteLine(item.BrandName + " " + item.ColorName + " " + item.DailyPrice + " " + item.CarName);
             }
         }
         private static void GetAll()
         {
             CarManager carManager = new CarManager(new EfCarDAL());
-            foreach (var item in carManager.GetAll().Data)   
+            foreach (var item in carManager.GetAll().Data)
             {
                 Console.WriteLine(item.Description);
             }
+        }
+        private static void RentalsAdd()
+        {
+            RentalsManager manager = new RentalsManager(new EfRentalsDAL());
+            manager.Add(new Rentals { CarId = 2, CustomerId = 2, RentDate = DateTime.Now.AddDays(10 / 05 / 1998 ), ReturnDate = DateTime.Now.AddDays(10 / 8 / 2000).Date ,RentalId=2});
+            Console.WriteLine(Messages.Success);
         }
 
     }
