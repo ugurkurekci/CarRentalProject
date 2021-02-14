@@ -6,6 +6,7 @@ using Entities.Concrete;
 using Entities.DTOs;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 
 namespace Business.Concrete
@@ -41,7 +42,10 @@ namespace Business.Concrete
             return new SuccessDataResult<Rentals>(_rentalsDAL.Get(X => X.RentalId == id));
         }
 
-
+        public IDataResult<List<RentalDetailsDto>> GetRentDetails(Expression<Func<Rentals, bool>> filter = null)
+        {
+            return new SuccessDataResult<List<RentalDetailsDto>>(_rentalsDAL.GetRentDetails(), Messages.Success);
+        }
 
         public IResult Update(Rentals rentals)
         {

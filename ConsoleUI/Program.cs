@@ -12,7 +12,7 @@ namespace ConsoleUI
         static void Main(string[] args)
         {
 
-            RentalsAdd();
+            RentalDetails();
 
 
 
@@ -51,6 +51,14 @@ namespace ConsoleUI
             RentalsManager manager = new RentalsManager(new EfRentalsDAL());
             manager.Add(new Rentals { CarId = 2, CustomerId = 2, RentDate = DateTime.Now.AddDays(10 / 05 / 1998 ), ReturnDate = DateTime.Now.AddDays(10 / 8 / 2000).Date ,RentalId=2});
             Console.WriteLine(Messages.Success);
+        }
+        private static void RentalDetails()
+        {
+            RentalsManager manager = new RentalsManager(new EfRentalsDAL());
+            foreach (var item in manager.GetRentDetails().Data)
+            {
+                Console.WriteLine( item.CustomerName);
+            }
         }
 
     }
