@@ -24,6 +24,15 @@ namespace Business.Concrete
         [ValidationAspect(typeof(RentalsValidator))]
         public IResult Add(Rentals rentals)
         {
+            var result = _rentalsDAL.GetAll(x => x.CarId == rentals.CarId);
+            foreach (var item in result)
+            {
+                if (item.ReturnDate == null || item.RentDate > item.ReturnDate)
+                {
+                    return new ErrorResult(Messages.DataNone);
+                }
+            }
+
             _rentalsDAL.Add(rentals);
             return new SuccessResult(Messages.Success);
         }
