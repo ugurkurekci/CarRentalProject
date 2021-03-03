@@ -26,7 +26,7 @@ namespace WebAPI.Controllers
             var result = _carImageService.Add(file, carImages);
             if (result.Success)
             {
-                return Ok(result);
+                return Ok(result.Message);
             }
             return BadRequest(result);
         }
