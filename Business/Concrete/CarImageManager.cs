@@ -1,6 +1,8 @@
 ﻿using Business.Abstract;
+using Business.BusinessAspects.Autofac;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Caching;
 using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Business;
 using Core.Utilities.Helpers;
@@ -24,6 +26,8 @@ namespace Business.Concrete
         {
             _carImagesDAL = carImagesDAL;
         }
+        [SecuredOperation("Admin")]
+        [CacheRemoveAspect("ICarImageService.Get")]
         [ValidationAspect(typeof(CarImageValidator))]
         public IResult Add(IFormFile file, CarImages carImages)
         {
@@ -37,6 +41,7 @@ namespace Business.Concrete
             _carImagesDAL.Add(carImages);
             return new SuccessResult();
         }
+        [SecuredOperation("Admin")]
         [ValidationAspect(typeof(CarImageValidator))]
         public IResult Delete(CarImages carImages)
         {
@@ -48,6 +53,8 @@ namespace Business.Concrete
             _carImagesDAL.Delete(carImages);
             return new SuccessResult();
         }
+        [SecuredOperation("Admin")]
+        [CacheRemoveAspect("ICarImageService.Get")]
         [ValidationAspect(typeof(CarImageValidator))]
         public IResult Update(IFormFile file, CarImages carImages)
         {
@@ -56,22 +63,29 @@ namespace Business.Concrete
             _carImagesDAL.Update(carImages);
             return new SuccessResult();
         }
+        [SecuredOperation("Admin")]
+        [CacheAspect(duration: 10)]
         [ValidationAspect(typeof(CarImageValidator))]
         public IDataResult<CarImages> Get(int id)
         {
             return new SuccessDataResult<CarImages>(_carImagesDAL.Get(p => p.Id == id));
         }
+        [SecuredOperation("Admin")]
+        [CacheAspect(duration: 60)]
         public IDataResult<List<CarImages>> GetAll()
         {
             return new SuccessDataResult<List<CarImages>>(_carImagesDAL.GetAll());
         }
+        [SecuredOperation("Admin")]
         [ValidationAspect(typeof(CarImageValidator))]
+        [CacheAspect(duration: 10)]
         public IDataResult<List<CarImages>> GetImagesByCarId(int id)
         {
             return new SuccessDataResult<List<CarImages>>(CheckIfCarImageNull(id));
         }
 
         //business rules
+        
         private IResult CheckImageLimitExceeded(int carid)
         {
             var carImagecount = _carImagesDAL.GetAll(p => p.CarId == carid).Count;
@@ -82,6 +96,7 @@ namespace Business.Concrete
 
             return new SuccessResult();
         }
+        
         private List<CarImages> CheckIfCarImageNull(int id)
         {
             string path = @"\Images\default.png";
@@ -92,6 +107,7 @@ namespace Business.Concrete
             }
             return _carImagesDAL.GetAll(p => p.CarId == id);
         }
+        
         private IResult CarImageDelete(CarImages carImages)
         {
             try
