@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 
 namespace Business.Concrete
 {
@@ -24,7 +25,7 @@ namespace Business.Concrete
         {
             _carDAL = carDAL;
         }
-        [SecuredOperation("Admin")]
+       // [SecuredOperation("Admin")]
         [CacheRemoveAspect("ICarService.Get")]
         [ValidationAspect(typeof(CarValidator))]
         public IResult Add(Car Car)
@@ -40,11 +41,18 @@ namespace Business.Concrete
             _carDAL.Delete(Car);
             return new SuccessResult(Messages.Success);
         }
-        [SecuredOperation("Admin")]
+       // [SecuredOperation("Admin")]
         [CacheAspect(duration: 60)]
         public IDataResult<List<Car>> GetAll()
         {
             return new SuccessDataResult<List<Car>>(_carDAL.GetAll());
+        }
+        //[SecuredOperation("Admin")]
+        [PerformanceAspect(5)]
+        public IDataResult<List<CarDetailsDto>> GetCarDetails()
+        {
+            Thread.Sleep(5000);
+            return new SuccessDataResult<List<CarDetailsDto>>(_carDAL.GetCarDetails(),Messages.Success);
         }
         [SecuredOperation("Admin")]
         [CacheAspect(duration: 10)]
@@ -76,12 +84,7 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<List<Car>>(_carDAL.GetAll(X => X.ModelYear.ToString().Contains(modelYear)));
         }
-        [SecuredOperation("Admin")]
-        [PerformanceAspect(5)]
-        public IDataResult<List<CarDetailsDto>> GetCarDetails()
-        {
-            return new SuccessDataResult<List<CarDetailsDto>>(_carDAL.GetCarDetails());
-        }
+       
         [SecuredOperation("Admin")]
         [CacheRemoveAspect("ICarService.Get")]
         [ValidationAspect(typeof(CarValidator))]

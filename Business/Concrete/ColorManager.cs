@@ -21,7 +21,7 @@ namespace Business.Concrete
         {
             _colorDAL = colorDAL;
         }
-        [SecuredOperation("Admin")]
+      //  [SecuredOperation("Admin")]
         [CacheRemoveAspect("IColorService.Get")]
         [ValidationAspect(typeof(ColorValidator))]
         public IResult Add(Entities.Concrete.Color color)
@@ -35,7 +35,7 @@ namespace Business.Concrete
             _colorDAL.Delete(color);
             return new SuccessResult(Messages.Success);
         }
-        [SecuredOperation("Admin")]
+        //[SecuredOperation("Admin")]
         [CacheAspect(duration: 60)]
         public IDataResult<List<Entities.Concrete.Color>> GetAll()
         {

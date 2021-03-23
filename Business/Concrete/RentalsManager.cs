@@ -14,6 +14,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
+using System.Threading;
 
 namespace Business.Concrete
 {
@@ -25,7 +26,7 @@ namespace Business.Concrete
         {
             _rentalsDAL = rentalsDAL;
         }
-        [SecuredOperation("Admin")]
+       // [SecuredOperation("Admin")]
         [CacheRemoveAspect("IRentalsService.Get")]
         [ValidationAspect(typeof(RentalsValidator))]
         public IResult Add(Rentals rentals)
@@ -57,7 +58,7 @@ namespace Business.Concrete
             return new SuccessResult(Messages.Success);
         }
 
-        [SecuredOperation("Admin")]
+        //[SecuredOperation("Admin")]
         [CacheAspect(duration: 60)]
         public IDataResult<List<Rentals>> GetAll()
         {
@@ -73,6 +74,7 @@ namespace Business.Concrete
         [PerformanceAspect(5)]
         public IDataResult<List<RentalDetailsDto>> GetRentDetails(Expression<Func<Rentals, bool>> filter = null)
         {
+            Thread.Sleep(5000);
             return new SuccessDataResult<List<RentalDetailsDto>>(_rentalsDAL.GetRentDetails(), Messages.Success);
         }
 

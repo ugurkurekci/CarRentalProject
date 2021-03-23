@@ -16,23 +16,22 @@ namespace DataAccess.Concrete.EntityFramework
         {
             using (CarDbContext contex = new CarDbContext())
             {
-                var result = from ca in contex.Car
-                             join re in contex.Rentals
-                             on ca.Id equals re.CarId
-                             join cu in contex.Customers
-                             on re.CustomerId equals cu.CustomerId
-                             join us in contex.Users
-                             on cu.UserId equals us.Id
-                             select new RentalDetailsDto
-                             {
-                                 RentalId = re.RentalId,
-                                 CarId = ca.Id,
-                                 CustomerName = cu.CustomerName,
-                                 UserName = us.FirstName,
-                                 RentDate = re.RentDate,
-                                 ReturnDate = (DateTime)re.ReturnDate
-                             };
-                return result.ToList();
+				var result = from r in filter is null ? contex.Rentals : contex.Rentals.Where(filter)
+							 join c in contex.Car on r.CarId equals c.Id
+							 join b in contex.Brand on c.BrandId equals b.BrandId
+							 join cu in contex.Customers on r.CustomerId equals cu.CustomerId
+							 join u in contex.Users on cu.UserId equals u.Id
+							 select new RentalDetailsDto
+							 {
+								 Id = r.CarId,
+								 BrandName = b.BrandName,								
+								 FirstName = u.FirstName,
+								 LastName = u.LastName,
+								 DailyPrice = c.DailyPrice,
+								 RentDate = r.RentDate,
+								 ReturnDate = r.ReturnDate
+							 };
+				return result.ToList();
 
             }
         }

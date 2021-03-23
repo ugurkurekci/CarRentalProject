@@ -22,7 +22,7 @@ namespace Business.Concrete
             _customersDAL = customersDAL;
         }
         [CacheRemoveAspect("ICustomersService.Get")]
-        [SecuredOperation("Admin")]
+      //  [SecuredOperation("Admin")]
         [ValidationAspect(typeof(CustomersValidator))]
         public IResult Add(Customers customers)
         {
@@ -35,7 +35,7 @@ namespace Business.Concrete
             _customersDAL.Delete(customers);
             return new SuccessResult(Messages.Success);
         }
-        [SecuredOperation("Admin")]
+       // [SecuredOperation("Admin")]
         [CacheAspect(duration: 60)]
         public IDataResult<List<Customers>> GetAll()
         {
