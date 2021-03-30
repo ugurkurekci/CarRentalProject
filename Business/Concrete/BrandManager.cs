@@ -11,6 +11,7 @@ using Entities.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 
 namespace Business.Concrete
 {
@@ -46,7 +47,7 @@ namespace Business.Concrete
         [CacheAspect(duration: 60)]
         public IDataResult<List<Brand>> GetAll()
         {
-
+            Thread.Sleep(1500);
             return new SuccessDataResult<List<Brand>>(_brandDAL.GetAll());
         }
 

@@ -54,7 +54,7 @@ namespace WebAPI
 
 
             services.AddSwaggerDocument();
-            
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -63,12 +63,12 @@ namespace WebAPI
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                
+
             }
-            app.UseCors(builder => builder.WithOrigins("http://localhost:4200").AllowAnyHeader());
+            app.UseCors(builder => builder.WithOrigins("http://localhost:4200", "http://localhost:6831").AllowAnyHeader().AllowAnyMethod());
             app.UseHttpsRedirection();
 
-            
+
             app.UseRouting();
             app.UseOpenApi();
             app.UseSwaggerUi3();
@@ -84,6 +84,7 @@ namespace WebAPI
             {
                 endpoints.MapControllers();
             });
+            app.UseStaticFiles();
         }
     }
 }

@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Text;
+using System.Threading;
 
 namespace Business.Concrete
 {
@@ -39,6 +40,7 @@ namespace Business.Concrete
         [CacheAspect(duration: 60)]
         public IDataResult<List<Entities.Concrete.Color>> GetAll()
         {
+            Thread.Sleep(1500);
             return new SuccessDataResult<List<Entities.Concrete.Color>>(_colorDAL.GetAll());
         }
         [SecuredOperation("Admin")]

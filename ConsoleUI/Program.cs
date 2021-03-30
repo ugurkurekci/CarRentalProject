@@ -35,7 +35,7 @@ namespace ConsoleUI
             CarManager carManager = new CarManager(new EfCarDAL());
             foreach (var item in carManager.GetCarDetails().Data)
             {
-                Console.WriteLine(item.BrandName + " " + item.ColorName + " " + item.DailyPrice + " " + item.CarName);
+                Console.WriteLine(item.BrandName + " " + item.ColorName + " " + item.DailyPrice + " " );
             }
         }
         private static void GetAll()
@@ -57,7 +57,7 @@ namespace ConsoleUI
             RentalsManager manager = new RentalsManager(new EfRentalsDAL());
             foreach (var item in manager.GetRentDetails().Data)
             {
-                Console.WriteLine( item.CustomerName);
+                Console.WriteLine( item.FirstName+""+item.LastName);
             }
         }
 

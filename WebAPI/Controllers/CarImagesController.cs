@@ -23,7 +23,7 @@ namespace WebAPI.Controllers
         [HttpPost("add")]
         public IActionResult Add([FromForm(Name = ("Image"))] IFormFile file, [FromForm] CarImages carImages)
         {
-            var result = _carImageService.Add(file, carImages);
+            var result = _carImageService.Add(carImages,file);
             if (result.Success)
             {
                 return Ok(result.Message);
@@ -49,7 +49,7 @@ namespace WebAPI.Controllers
         public IActionResult Update([FromForm(Name = ("Image"))] IFormFile file, [FromForm(Name = ("Id"))] int Id)
         {
             var carImages = _carImageService.Get(Id).Data;
-            var result = _carImageService.Update(file, carImages);
+            var result = _carImageService.Update(carImages,file);
             if (result.Success)
             {
                 return Ok(result);
@@ -89,5 +89,6 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result);
         }
+        
     }
 }

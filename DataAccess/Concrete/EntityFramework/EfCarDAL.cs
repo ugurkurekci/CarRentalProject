@@ -13,32 +13,36 @@ namespace DataAccess.Concrete.EntityFramework
 {
     public class EfCarDAL : EfEntityRepositoryBase<Car, CarDbContext>, ICarDAL
     {
-        public List<CarDetailsDto> GetCarDetails(Expression<Func<CarDetailsDto, bool>> filter = null)
+        public List<CarDetailsDto> GetCarDetails(Expression<Func<Car, bool>> filter = null)
         {
             using (CarDbContext contex = new CarDbContext())
             {
-                var result = from c in contex.Car
+                var result = from c in filter is null ? contex.Car : contex.Car.Where(filter)
                              join b in contex.Brand
-
-                             on c.Id equals b.BrandId
-
+                             on c.BrandId equals b.BrandId
                              join cl in contex.Color
-                             on c.ColorId equals cl.ColorId 
-
+                             on c.ColorId equals cl.ColorId
+                             join ci in contex.CarImages
+                             on c.Id equals ci.CarId
                              select new CarDetailsDto
                              {
-                                 Id = c.Id,                               
+                                 Id = c.Id,
+                                 BrandId = c.BrandId,
+                                 ColorId = c.ColorId,
+                                 DailyPrice = c.DailyPrice,
+                                 ModelYear = c.ModelYear,
+                                 Description = c.Description,                                
                                  BrandName = b.BrandName,
                                  ColorName = cl.ColorName,
-                                 ModelYear = c.ModelYear,
-                                 DailyPrice = c.DailyPrice,                                
-                                 Description = c.Description,
+                                 ImagePath=ci.ImagePath,
+                                 ImageId=ci.Id,
+                                 Date=ci.Date,
+                                 CarName=ci.CarId
+                                 
                                  
                                  
                              };
-
                 return result.ToList();
-
             }
         }
 

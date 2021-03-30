@@ -62,6 +62,7 @@ namespace Business.Concrete
         [CacheAspect(duration: 60)]
         public IDataResult<List<Rentals>> GetAll()
         {
+            Thread.Sleep(1500);
             return new SuccessDataResult<List<Rentals>>(_rentalsDAL.GetAll());
         }
         [SecuredOperation("Admin")]
@@ -74,7 +75,7 @@ namespace Business.Concrete
         [PerformanceAspect(5)]
         public IDataResult<List<RentalDetailsDto>> GetRentDetails(Expression<Func<Rentals, bool>> filter = null)
         {
-            Thread.Sleep(5000);
+            Thread.Sleep(1500);
             return new SuccessDataResult<List<RentalDetailsDto>>(_rentalsDAL.GetRentDetails(), Messages.Success);
         }
 
