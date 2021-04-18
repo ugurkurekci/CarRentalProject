@@ -2,7 +2,8 @@
 
 
 <h3>CarRental PROJE</h3>
-<h2>Katmanli Mimari ile yapılmıştır.</h2>
+<h2>Katmanlı mimari ile yapılmıştır.SOLID yazılım geliştirme prensiplerine uygun olarak geliştirilmiştir. (Restful WebApi , Repository Design Pattern , Interceptor, Aspectler , Cross Cutting Concerns , Cache, Validate, Authorize Aspect , Autofac , Fluent Validation , JSON Web Token</h2>
+
 
 <h3 >Kullanılan Teknoloji ve Dil</h3>
 <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/csharp/csharp-original.svg" alt="csharp" width="60" height="40"/> 
