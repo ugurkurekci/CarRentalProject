@@ -17,7 +17,7 @@ namespace DataAccess.Concrete.EntityFramework
         {
             using (CarDbContext contex = new CarDbContext())
             {
-                var result = from c in filter is null ? contex.Car : contex.Car.Where(filter)
+                var result = from c in filter == null ? contex.Car : contex.Car.Where(filter)
                              join b in contex.Brand
                              on c.BrandId equals b.BrandId
                              join cl in contex.Color

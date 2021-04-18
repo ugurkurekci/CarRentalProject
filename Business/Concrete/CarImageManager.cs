@@ -23,9 +23,12 @@ namespace Business.Concrete
     {
         ICarImagesDAL _carImagesDAL;
 
+
         public CarImageManager(ICarImagesDAL carImagesDAL)
         {
             _carImagesDAL = carImagesDAL;
+
+
         }
         //   [SecuredOperation("Admin")]
         //   [CacheRemoveAspect("ICarImageService.Get")]
@@ -76,7 +79,7 @@ namespace Business.Concrete
                 return new ErrorResult("Image not found");
             }
 
-            var updatedFile = FileHelper.FileUploadHelper.UpdateImage(isImage.ImagePath,file);
+            var updatedFile = FileHelper.FileUploadHelper.UpdateImage(isImage.ImagePath, file);
             if (!updatedFile.Success)
             {
                 return new ErrorResult(updatedFile.Message);
@@ -104,6 +107,10 @@ namespace Business.Concrete
         public IDataResult<List<CarImages>> GetImagesByCarId(int id)
         {
             return new SuccessDataResult<List<CarImages>>(CheckIfCarImageNull(id));
+        }
+        public IDataResult<List<CarImages>> GetDetailsByCarId(int id)
+        {
+            return new SuccessDataResult<List<CarImages>>(_carImagesDAL.GetAll(p => p.CarId == id));
         }
 
 
