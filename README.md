@@ -2,7 +2,7 @@
 
 
 <h3>CarRental PROJE</h3>
-<h2>Katmanlı mimari ile yapılmıştır.SOLID yazılım geliştirme prensiplerine uygun olarak geliştirilmiştir. (Restful WebApi , Repository Design Pattern , Interceptor, Aspectler , Cross Cutting Concerns , Cache, Validate, Authorize Aspect , Autofac , Fluent Validation , JSON Web Token</h2>
+<p>Katmanlı mimari ile yapılmıştır.SOLID yazılım geliştirme prensiplerine uygun olarak geliştirilmiştir. (Restful WebApi , Repository Design Pattern , Interceptor, Aspectler , Cross Cutting Concerns , Cache, Validate, Authorize Aspect , Autofac , Fluent Validation , JSON Web Token )<p>
 
 
 <h3 >Kullanılan Teknoloji ve Dil</h3>
