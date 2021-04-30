@@ -10,7 +10,8 @@ namespace Business.ValidationRules.FluentValidation
     {
         public BrandValidator()
         {
-            RuleFor(p => p.BrandName).MinimumLength(0).NotEmpty();
+            RuleFor(p => p.BrandName).MinimumLength(3).NotEmpty();
+            
 
 
         }

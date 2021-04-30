@@ -50,6 +50,7 @@ namespace WebAPI.Controllers
             if (result.Success)
             {
                 return Ok(result);
+                return Ok(result.Message);
             }
             return BadRequest(result);
         }
