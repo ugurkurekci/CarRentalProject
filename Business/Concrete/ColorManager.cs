@@ -30,7 +30,7 @@ namespace Business.Concrete
             _colorDAL.Add(color);
             return new SuccessResult(Messages.Success);
         }
-        [SecuredOperation("Admin")]
+        //[SecuredOperation("Admin")]
         public IResult Delete(Entities.Concrete.Color color)
         {
             _colorDAL.Delete(color);
@@ -43,14 +43,14 @@ namespace Business.Concrete
             Thread.Sleep(1500);
             return new SuccessDataResult<List<Entities.Concrete.Color>>(_colorDAL.GetAll());
         }
-        [SecuredOperation("Admin")]
+       // [SecuredOperation("Admin")]
         [CacheAspect(duration: 10)]
         public IDataResult<Entities.Concrete.Color> GetColorById(int colorId)
         {
             return new SuccessDataResult<Entities.Concrete.Color>(_colorDAL.Get(x => x.ColorId == colorId));
         }
 
-        [SecuredOperation("Admin")]
+       // [SecuredOperation("Admin")]
         [ValidationAspect(typeof(ColorValidator))]
         [CacheRemoveAspect("IColorService.Get")]
         public IResult Update(Entities.Concrete.Color color)
