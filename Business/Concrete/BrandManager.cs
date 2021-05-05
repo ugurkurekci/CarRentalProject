@@ -23,8 +23,7 @@ namespace Business.Concrete
         {
             _brandDAL = branDAL;
         }
-        //[SecuredOperation("Admin")]
-        [CacheRemoveAspect("IBrandService.Get")]
+        [SecuredOperation("admin")]
         [ValidationAspect(typeof(BrandValidator))]
         public IResult Add(Brand brand)
         {
@@ -34,7 +33,7 @@ namespace Business.Concrete
         }
 
 
-        //[SecuredOperation("Admin")]
+        [SecuredOperation("Admin")]
         public IResult Delete(Brand brand)
         {
 
@@ -43,7 +42,7 @@ namespace Business.Concrete
         }
 
 
-        //[SecuredOperation("Admin")]
+        // [SecuredOperation("Admin")]
         [CacheAspect(duration: 60)]
         public IDataResult<List<Brand>> GetAll()
         {
@@ -52,7 +51,7 @@ namespace Business.Concrete
         }
 
 
-        //[SecuredOperation("Admin")]
+        // [SecuredOperation("Admin")]
         [CacheAspect(duration: 10)]
         public IDataResult<Brand> GetBrandById(int brandId)
         {
@@ -60,7 +59,7 @@ namespace Business.Concrete
         }
 
 
-        //[SecuredOperation("Admin")]
+        [SecuredOperation("Admin")]
         [CacheRemoveAspect("IBrandService.Get")]
         [ValidationAspect(typeof(BrandValidator))]
         public IResult Update(Brand brand)
